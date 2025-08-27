@@ -1,7 +1,8 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LayoutGrid, Package, ListChecks, Webhook, UsersRound, Settings, Menu } from "lucide-react";
 
 const items = [
@@ -17,19 +18,39 @@ const items = [
 export function Sidebar() {
   const path = usePathname();
   const [open, setOpen] = useState(true);
+  const [mounted, setMounted] = useState(false);
+
+  // recuerda el estado entre visitas
+  useEffect(() => {
+    setMounted(true);
+    const saved = localStorage.getItem("bhc.sidebar");
+    if (saved !== null) setOpen(saved === "1");
+  }, []);
+  useEffect(() => {
+    if (mounted) localStorage.setItem("bhc.sidebar", open ? "1" : "0");
+  }, [open, mounted]);
 
   return (
-    <aside className={`bg-[#0b2b44] text-white transition-all duration-200 ${open ? "w-64" : "w-16"} flex flex-col`}>
+    <aside
+      className={`bg-[#0b2b44] text-white transition-all duration-200 flex flex-col
+      ${open ? "w-64" : "w-16"} shadow-lg`}
+    >
+      {/* header del sidebar */}
       <div className="h-14 border-b border-white/10 flex items-center justify-between px-3">
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-md bg-white text-[#0b2b44] grid place-items-center font-bold">BH</div>
           {open && <span className="font-semibold">App Hub</span>}
         </div>
-        <button className="p-2 rounded-md hover:bg-white/10" onClick={() => setOpen(v=>!v)} aria-label="Toggle menu">
+        <button
+          className="p-2 rounded-md hover:bg-white/10"
+          aria-label="Toggle menu"
+          onClick={() => setOpen(v => !v)}
+        >
           <Menu className="size-5" />
         </button>
       </div>
 
+      {/* navegación */}
       <nav className="p-2 space-y-1">
         {items.map(({ href, label, icon: Icon }) => {
           const active = path === href || path?.startsWith(href + "/");
@@ -48,7 +69,9 @@ export function Sidebar() {
         })}
       </nav>
 
-      <div className="mt-auto p-3 text-[11px] text-white/70">{open ? "© BlackHold Consulting" : "© BHC"}</div>
+      <div className="mt-auto p-3 text-[11px] text-white/70">
+        {open ? "© BlackHold Consulting" : "© BHC"}
+      </div>
     </aside>
   );
 }
