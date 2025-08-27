@@ -1,4 +1,4 @@
-// app/(app)/dashboard/page.tsx
+// app/dashboard/page.tsx
 import { supabaseServer } from "@/lib/supabase/server";
 import { KpiCard } from "@/components/kpi-card";
 
