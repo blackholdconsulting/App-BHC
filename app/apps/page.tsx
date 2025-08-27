@@ -1,12 +1,9 @@
 // app/(app)/apps/page.tsx
-import Link from "next/link";
 import { supabaseServer } from "@/lib/supabase/server";
 
 export default async function MyApps() {
   const sb = supabaseServer();
-  const { data, error } = await sb.from("apps").select("*").order("created_at", { ascending: false });
-  if (error) return <div className="text-red-600">Error loading apps</div>;
-
+  const { data } = await sb.from("apps").select("*").order("created_at", { ascending: false });
   return (
     <div className="space-y-6">
       <h1 className="text-xl font-semibold">Installed Apps</h1>
@@ -22,7 +19,7 @@ export default async function MyApps() {
             </tr>
           </thead>
           <tbody>
-            {data?.map((row) => (
+            {(data ?? []).map((row) => (
               <tr key={row.id} className="border-t">
                 <td className="p-3">{row.name}</td>
                 <td className="p-3">{row.slug}</td>
@@ -41,12 +38,6 @@ export default async function MyApps() {
           </tbody>
         </table>
       </div>
-      <a
-        href="/api/leads/export"
-        className="inline-flex items-center px-3 py-2 rounded-md bg-slate-900 text-white text-sm"
-      >
-        Export Leads (CSV)
-      </a>
     </div>
   );
 }
