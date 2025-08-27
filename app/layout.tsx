@@ -1,16 +1,16 @@
-// app/layout.tsx
-import "@/styles/globals.css"; // <-- IMPORTANTE
-import type { Metadata } from "next";
+import { Sidebar } from "@/components/layout/Sidebar";
+import { Header } from "@/components/layout/Header";
+import { FabQuickActions } from "@/components/FabQuickActions";
 
-export const metadata: Metadata = {
-  title: "BlackHold App Hub",
-  description: "Marketplace interno de apps — BlackHold Consulting",
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
-      <body className="min-h-screen">{children}</body>
-    </html>
+    <div className="min-h-screen flex bg-slate-50 text-slate-900">
+      <Sidebar />
+      <div className="flex-1 flex flex-col">
+        <Header />
+        <main className="p-4 md:p-6">{children}</main>
+      </div>
+      <FabQuickActions />
+    </div>
   );
 }
