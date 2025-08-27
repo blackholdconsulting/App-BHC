@@ -2,10 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Estilo base rápido */
+/* Fuente y colores base */
 :root { color-scheme: light; }
-html, body {
-  height: 100%;
-  background: #f6f7fb; /* gris claro */
-  color: #0f172a;      /* slate-900 */
-}
+html, body { height: 100%; }
+body { @apply bg-slate-50 text-slate-900 antialiased; }
+
+/* Scroll sutil */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
