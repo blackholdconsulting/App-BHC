@@ -1,12 +1,13 @@
-// app/(app)/apps/page.tsx
+// app/apps/page.tsx
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { supabaseServer } from "@/lib/supabase/server";
 
 export default async function MyApps() {
   const sb = supabaseServer();
   const { data } = await sb.from("apps").select("*").order("created_at", { ascending: false });
+
   return (
-    <div className="space-y-6">
-      <h1 className="text-xl font-semibold">Installed Apps</h1>
+    <DashboardLayout title="Installed Apps" subtitle="Manage installed internal applications">
       <div className="overflow-hidden rounded-xl border bg-white">
         <table className="w-full text-sm">
           <thead className="bg-slate-50 text-slate-600">
@@ -38,6 +39,6 @@ export default async function MyApps() {
           </tbody>
         </table>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
