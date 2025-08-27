@@ -1,4 +1,5 @@
 // app/dashboard/page.tsx
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { supabaseServer } from "@/lib/supabase/server";
 import { KpiCard } from "@/components/kpi-card";
 
@@ -14,14 +15,13 @@ export default async function Dashboard() {
   ]);
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-xl font-semibold">Dashboard</h1>
+    <DashboardLayout title="Dashboard" subtitle="Welcome to your BlackHold App Hub">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <KpiCard title="Installed Apps" value={apps ?? 0} />
         <KpiCard title="Active Tasks" value={tasks ?? 0} />
         <KpiCard title="Webhooks" value={hooks ?? 0} />
         <KpiCard title="New Leads (24h)" value={newLeads ?? 0} />
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
