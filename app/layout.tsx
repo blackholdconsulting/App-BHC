@@ -1,5 +1,5 @@
 // app/layout.tsx
-import "@/styles/globals.css"; // <-- usa la hoja correcta de Tailwind v4
+import "@/styles/globals.css"; // <-- IMPORTANTE
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
