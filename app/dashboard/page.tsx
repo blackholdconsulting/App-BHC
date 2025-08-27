@@ -1,14 +1,6 @@
-// app/dashboard/page.tsx
+// app/(app)/dashboard/page.tsx
 import { supabaseServer } from "@/lib/supabase/server";
-
-function Kpi({ title, value }: { title: string; value: number }) {
-  return (
-    <div className="rounded-xl border p-4 bg-white">
-      <div className="text-sm text-slate-500">{title}</div>
-      <div className="text-3xl font-semibold mt-1">{value}</div>
-    </div>
-  );
-}
+import { KpiCard } from "@/components/kpi-card";
 
 export default async function Dashboard() {
   const sb = supabaseServer();
@@ -25,10 +17,10 @@ export default async function Dashboard() {
     <div className="space-y-6">
       <h1 className="text-xl font-semibold">Dashboard</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Kpi title="Installed Apps" value={apps ?? 0} />
-        <Kpi title="Active Tasks" value={tasks ?? 0} />
-        <Kpi title="Webhooks" value={hooks ?? 0} />
-        <Kpi title="New Leads (24h)" value={newLeads ?? 0} />
+        <KpiCard title="Installed Apps" value={apps ?? 0} />
+        <KpiCard title="Active Tasks" value={tasks ?? 0} />
+        <KpiCard title="Webhooks" value={hooks ?? 0} />
+        <KpiCard title="New Leads (24h)" value={newLeads ?? 0} />
       </div>
     </div>
   );
