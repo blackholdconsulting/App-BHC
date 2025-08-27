@@ -1,13 +1,14 @@
-// app/(app)/catalog/page.tsx
+// app/catalog/page.tsx
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { supabaseServer } from "@/lib/supabase/server";
 import Link from "next/link";
 
 export default async function Catalog() {
   const sb = supabaseServer();
   const { data: apps } = await sb.from("app_catalog").select("*").order("name");
+
   return (
-    <div className="space-y-6">
-      <h1 className="text-xl font-semibold">App Catalog</h1>
+    <DashboardLayout title="App Catalog" subtitle="Install internal tools for BlackHold">
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {(apps ?? []).map((a) => (
           <div key={a.key} className="rounded-xl border bg-white p-4 flex flex-col">
@@ -27,6 +28,6 @@ export default async function Catalog() {
           </div>
         ))}
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
